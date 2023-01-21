@@ -22,8 +22,6 @@ public class CityServiceImpl implements CityService {
     @Override
     public City updateCity(City city) {
        City updateCity = cityRepository.findBycityName(city.getCityName());
-        System.out.println(city);
-        System.out.println(updateCity);
        if(city.getPopulation() != null){
            updateCity.setPopulation(city.getPopulation());
        }

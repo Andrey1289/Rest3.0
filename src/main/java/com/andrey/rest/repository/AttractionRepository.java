@@ -12,5 +12,6 @@ public interface AttractionRepository extends JpaRepository<Attraction,Long> {
     public List<Attraction> findAllBycity_id(Long id);
     public void deleteBynameAttraction(String name);
     public List<Attraction> findAllBytypeAttraction(TypeAttraction typeAttraction);
+    public Attraction findBynameAttraction(String nameAttraction);
 
 }

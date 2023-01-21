@@ -1,5 +1,6 @@
 package com.andrey.rest.service.impl;
 
+import com.andrey.rest.dto.AttractionDto;
 import com.andrey.rest.entity.Attraction;
 import com.andrey.rest.repository.AttractionRepository;
 import com.andrey.rest.service.AttractionService;
@@ -27,9 +28,13 @@ public class AttractionServiceImpl implements AttractionService {
 
     @Override
     public Attraction updateAttraction(Attraction attraction) {
+        Attraction updateAttraction = attractionRepository.findBynameAttraction(attraction.getNameAttraction());
 
+        if(attraction.getDescription() !=null){
+            updateAttraction.setDescription(attraction.getDescription());
+        }
 
-        return null;
+        return attractionRepository.save(updateAttraction);
     }
 
     @Override
@@ -58,6 +63,11 @@ public class AttractionServiceImpl implements AttractionService {
         List<Attraction> attractionList = attractionRepository.findAllBytypeAttraction(stringToEnumConverter.getTypeAttraction());
         System.out.println(attractionList);
         return attractionList;
+    }
+
+    @Override
+    public Attraction getAttractionByNameAttraction(String nameAttraction) {
+        return attractionRepository.findBynameAttraction(nameAttraction);
     }
 
 }

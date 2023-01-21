@@ -37,8 +37,7 @@ public class AttractionController {
 
               return new ResponseEntity<>(attractionDtos,HttpStatus.OK);
     }
-    //to do отдается не полная DTO
-     @PostMapping("createAttraction")
+     @PostMapping("create")
     public ResponseEntity<AttractionDto> createAttraction(@RequestBody AttractionDto attractionDto) {
 
          if(attractionDto == null){
@@ -50,11 +49,16 @@ public class AttractionController {
                    .fromAttraction(attractionService.createAttraction(attraction));
         return new ResponseEntity<>(attractionDto,HttpStatus.OK);
     }
+   @PutMapping("updateDescription")
+   public ResponseEntity<AttractionDto> updateAttraction(@RequestBody AttractionDto attractionDto) {
+          if(attractionDto ==null){
+              return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+          }
+           Attraction attraction = attractionService
+                   .updateAttraction(AttractionDto.toAttraction(attractionDto));
 
-   /* public ResponseEntity<> updateAttraction(DAO dao) {
-
-        return
-    }*/
+        return new ResponseEntity(AttractionDto.fromAttraction(attraction),HttpStatus.OK);
+    }
     @DeleteMapping("deleteAttraction/{name}")
     public ResponseEntity<String> deleteAttraction(@PathVariable String name){
         if(name == null){
@@ -66,13 +70,21 @@ public class AttractionController {
     }
     @GetMapping("getAttractionBy/{typeAttraction}")
     public ResponseEntity<List<AttractionDto>> getAllAttractionByTypeAttraction(@PathVariable String typeAttraction){
-        System.out.println(typeAttraction);
         if(typeAttraction == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        System.out.println(typeAttraction);
       List<Attraction> attractionList =  attractionService.getAllAttractionByTypeAttraction(typeAttraction);
 
         return new ResponseEntity<>(AttractionDto.attractionDtoList(attractionList),HttpStatus.OK);
+    }
+    @GetMapping("getAttractionByNameAttraction/{nameAttraction}")
+    public ResponseEntity<AttractionDto> getAllAttractionByNameAttraction(@PathVariable String nameAttraction){
+
+        if(nameAttraction == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+         Attraction attraction = attractionService.getAttractionByNameAttraction(nameAttraction);
+
+        return new ResponseEntity<>(AttractionDto.fromAttraction(attraction),HttpStatus.OK);
     }
 }

@@ -14,5 +14,6 @@ public interface AttractionService {
     public List<Attraction> getAllAttractionsByCityName(String name);
     public void deleteAttraction(String name);
     public List<Attraction> getAllAttractionByTypeAttraction(String typeAttraction);
+    public Attraction getAttractionByNameAttraction(String nameAttraction);
 
 }

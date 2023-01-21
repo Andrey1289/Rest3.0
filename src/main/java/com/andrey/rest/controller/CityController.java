@@ -16,7 +16,7 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @PostMapping("createCity")
+    @PostMapping("create")
     public ResponseEntity<CityDTO> createCity(@RequestBody CityDTO cityDTO){
 
         if(cityDTO == null){
@@ -25,7 +25,7 @@ public class CityController {
         cityDTO = CityDTO.fromCity(cityService.createCity(CityDTO.toCity(cityDTO)));
         return new ResponseEntity<>(cityDTO,HttpStatus.CREATED);
     }
-    @PutMapping("updateCity")
+    @PutMapping("update")
    public ResponseEntity<CityDTO> updateCity(@RequestBody CityDTO cityDTO){
         if(cityDTO == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
