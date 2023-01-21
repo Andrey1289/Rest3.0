@@ -11,5 +11,4 @@ public interface CityService {
     public City updateCity(City city);
     public Long getCityIdByCityName(String cityName);
 
-
 }

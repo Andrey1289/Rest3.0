@@ -4,7 +4,9 @@ import com.andrey.rest.entity.Attraction;
 import com.andrey.rest.repository.AttractionRepository;
 import com.andrey.rest.service.AttractionService;
 import com.andrey.rest.service.CityService;
+import com.andrey.rest.utils.StringToEnumConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +22,6 @@ public class AttractionServiceImpl implements AttractionService {
 
     @Override
     public Attraction createAttraction(Attraction attraction) {
-        System.out.println(cityService.getCityIdByCityName("Moscow"));
         return attractionRepository.save(attraction);
     }
 
@@ -38,13 +39,25 @@ public class AttractionServiceImpl implements AttractionService {
     }
 
     @Override
-    public List<Attraction> getAllAttractionsByCityId(Long id) {
-        return null;
+    public List<Attraction> getAllAttractionsByCityName(String name) {
+        Long id = cityService.getCityIdByCityName(name);
+        List<Attraction> attractionList = (List<Attraction>) attractionRepository.findAllBycity_id(id);
+        return attractionList;
+    }
+
+    @Transactional
+    @Override
+    public void deleteAttraction(String name) {
+        attractionRepository.deleteBynameAttraction(name);
     }
 
     @Override
-    public void deleteAttraction(Long id) {
+    public List<Attraction> getAllAttractionByTypeAttraction(String typeAttraction) {
+        StringToEnumConverter stringToEnumConverter = new StringToEnumConverter(typeAttraction);
 
+        List<Attraction> attractionList = attractionRepository.findAllBytypeAttraction(stringToEnumConverter.getTypeAttraction());
+        System.out.println(attractionList);
+        return attractionList;
     }
 
 }

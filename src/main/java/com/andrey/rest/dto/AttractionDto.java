@@ -20,6 +20,7 @@ public class AttractionDto {
     public static AttractionDto fromAttraction(Attraction attraction){
             AttractionDto attractionDto = new AttractionDto();
 
+            attractionDto.setId(attraction.getId());
             attractionDto.setNameAttraction(attraction.getNameAttraction());
             attractionDto.setDateOfConstruction(attraction.getDateOfConstruction());
             attractionDto.setDescription(attraction.getDescription());
@@ -92,4 +93,5 @@ public class AttractionDto {
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
+
 }
